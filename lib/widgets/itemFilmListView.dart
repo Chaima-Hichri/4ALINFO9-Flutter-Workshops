@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-class itemFilm extends StatelessWidget {
+class itemFilmListView extends StatelessWidget {
   final String title;
   final String image;
-  const itemFilm({super.key,required this.title,required this.image});
+  const itemFilmListView({super.key,required this.title,required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class itemFilm extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            Image.asset("assets/images/$image"),
+            Image.asset("$image"),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Row(

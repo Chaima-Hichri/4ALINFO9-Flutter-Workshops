@@ -1,5 +1,7 @@
 import 'package:alinfo9_workshops/screens/Details.dart';
-import 'package:alinfo9_workshops/screens/GStorePage.dart';
+import 'package:alinfo9_workshops/screens/MyFilmsGridView.dart';
+import 'package:alinfo9_workshops/screens/MyFilmsListView.dart';
+import 'package:alinfo9_workshops/screens/SignUp.dart';
 import 'package:flutter/material.dart' show AppBar, BuildContext, Center, ColorScheme, Colors, Column, FloatingActionButton, Icon, Icons, MainAxisAlignment, MaterialApp, Scaffold, State, StatefulWidget, StatelessWidget, Text, Theme, ThemeData, Widget, runApp;
 
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Details(),
+      home: const SignUp(),
     );
   }
 }
