@@ -84,14 +84,19 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(height: 25,),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("Already have an account ?"),
-                  SizedBox(width: 6,),
+              InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, "/");
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text("Already have an account ?"),
+                    SizedBox(width: 6,),
 
-                  Icon(Icons.arrow_forward_rounded,color: Colors.deepOrange,)
-                ],
+                    Icon(Icons.arrow_forward_rounded,color: Colors.deepOrange,)
+                  ],
+                ),
               ),
               SizedBox(height: 25,),
 

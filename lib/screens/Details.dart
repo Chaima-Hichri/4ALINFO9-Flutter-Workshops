@@ -1,6 +1,8 @@
+import 'package:alinfo9_workshops/models/Film.dart';
 import 'package:flutter/material.dart';
 class Details extends StatefulWidget {
-  const Details({super.key});
+  final Film film;
+  const Details({super.key,required this.film});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -11,17 +13,17 @@ class _DetailsState extends State<Details> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("House of Dead"),
+        title: Text(widget.film.title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            Image.asset("assets/images/HouseOfDead.jpg"),
+            Image.asset(widget.film.image),
             SizedBox(height: 20,),
-            Text("House of the Dead can refer to several things, most commonly a 1996 arcade light gun shooter video game where players shoot zombies to stop a mad scientist, or a 1978 novel by Fyodor Dostoevsky about his experiences in a Siberian prison camp"),
+            Text(widget.film.description),
             SizedBox(height: 40,),
-            Text("300 DT",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
+            Text(widget.film.price.toString()+" DT",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
             SizedBox(height: 40,),
             Container(
               width: 150,
