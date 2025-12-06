@@ -23,14 +23,12 @@ class _MyFilmsListViewState extends State<MyFilmsListView> {
     final response=await http.get(
       Uri.parse(Constants.base_url+"/movies")
     );
-
     if(response.statusCode==200){
       List<dynamic> filmsFromServer = json.decode(response.body);
       for(var item in filmsFromServer){
-        myfilms.add(Film(item["title"],item["image"],item["description"],item["price"]));
+        myfilms.add(Film(item['title'],item['image'],item['description'],item['price']));
       }
     }
-
     return true;
   }
 
@@ -41,11 +39,6 @@ class _MyFilmsListViewState extends State<MyFilmsListView> {
     super.initState();
     fetchedFilms=getFilms();
   }
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +61,8 @@ class _MyFilmsListViewState extends State<MyFilmsListView> {
                     });
               }
               else{
-                 return Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator(),);
+
               }
             }
 

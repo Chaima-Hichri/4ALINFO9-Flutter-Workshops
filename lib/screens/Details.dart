@@ -23,7 +23,7 @@ class _DetailsState extends State<Details> {
             SizedBox(height: 20,),
             Text(widget.film.description),
             SizedBox(height: 40,),
-            Text(widget.film.price.toString()+" DT",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
+          //  Text(widget.film.price.toString()+" DT",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
             SizedBox(height: 40,),
             Container(
               width: 150,

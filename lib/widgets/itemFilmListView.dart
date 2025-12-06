@@ -12,7 +12,7 @@ class itemFilmListView extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            Image.asset(Constants.base_url+"$image"),
+            Image.network(Constants.base_url+"$image"),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Row(
