@@ -1,8 +1,11 @@
+import 'dart:convert';
+
+import 'package:alinfo9_workshops/Constants/Constants.dart';
 import 'package:alinfo9_workshops/screens/Details.dart';
 import 'package:alinfo9_workshops/widgets/CustomDrawer.dart';
 import 'package:alinfo9_workshops/widgets/itemFilmListView.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import '../models/Film.dart';
 
 class MyFilmsListView extends StatefulWidget {
@@ -13,44 +16,64 @@ class MyFilmsListView extends StatefulWidget {
 }
 
 class _MyFilmsListViewState extends State<MyFilmsListView> {
-  final List<Film> films = const [
-    const Film(
-        "The abyss",
-        "assets/images/theabyss.jpg",
-        "An abyss is a deep, immeasurable, and unfathomable space, gulf, or void, which can be a literal chasm or a figurative concept representing a profound crisis, emotional low point, or overwhelming challenge",
-        100),
-    const Film(
-        "House Of Dead",
-        "assets/images/HouseOfDead.jpg",
-        "The House of the Dead is a classic arcade light gun shooter series from Sega that features government agents fighting hordes of biologically engineered undead and mutants",
-        300),
-    const Film(
-        "IceRoad",
-        "assets/images/iceroad.jpg",
-        "The Ice Road follows a team of truck drivers on a dangerous mission over frozen lakes and winter roads to deliver a crucial component to save workers trapped in .",
-        200),
-    const Film(
-        "The Grudge",
-        "assets/images/thegrudge.jpg",
-        "The Grudge is a curse, born when someone dies in extreme rage or sorrow and lingers where the person dies. Those who encounter it will die, and the curse is ..",
-        150),
-  ];
+  final List<Film> myfilms=[];
+  late Future<bool> fetchedFilms;
+
+  Future<bool> getFilms() async{
+    final response=await http.get(
+      Uri.parse(Constants.base_url+"/movies")
+    );
+
+    if(response.statusCode==200){
+      List<dynamic> filmsFromServer = json.decode(response.body);
+      for(var item in filmsFromServer){
+        myfilms.add(Film(item["title"],item["image"],item["description"],item["price"]));
+      }
+    }
+
+    return true;
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchedFilms=getFilms();
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView.builder(
-            itemCount: films.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Details(film: films[index])));
-                  },
-                  child: itemFilmListView(
-                      title: films[index].title, image: films[index].image));
-            }));
+        body: FutureBuilder(
+            future: fetchedFilms,
+            builder: (context,snapshot){
+              if(snapshot.hasData && myfilms.isNotEmpty){
+                return ListView.builder(
+                    itemCount: myfilms.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Details(film: myfilms[index])));
+                          },
+                          child: itemFilmListView(
+                              title: myfilms[index].title, image: myfilms[index].image));
+                    });
+              }
+              else{
+                 return Center(child: CircularProgressIndicator());
+              }
+            }
+
+        )
+
+    );
   }
 }

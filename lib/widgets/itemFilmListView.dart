@@ -1,3 +1,4 @@
+import 'package:alinfo9_workshops/Constants/Constants.dart';
 import 'package:flutter/material.dart';
 class itemFilmListView extends StatelessWidget {
   final String title;
@@ -11,7 +12,7 @@ class itemFilmListView extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            Image.asset("$image"),
+            Image.asset(Constants.base_url+"$image"),
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Row(

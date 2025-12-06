@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:alinfo9_workshops/screens/MyFilmsListView.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import '../Constants/Constants.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -95,8 +99,38 @@ class _SignInState extends State<SignIn> {
                     onPressed: () async{
                       if (_globalKey.currentState!.validate()) {
                         _globalKey.currentState!.save();
-                       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyFilmsListView()));
-                        Navigator.pushReplacementNamed(context, "/tabbarnav");
+                        Map<String, String> headers = {
+                          "Content-Type": "application/json; charset=UTF-8"
+                        };
+                        Map<String, dynamic> userData = {
+                          "email": email,
+                          "password": password,
+                        };
+                        try {
+                          final response = await http.post(
+                              Uri.parse(Constants.base_url + "/signin"),
+                              headers: headers,
+                              body: json.encode(userData)
+                          );
+
+                          if(response.statusCode==200){
+                            Navigator.pushReplacementNamed(context, "/tabbarnav");
+                          }
+                             else{
+                            showDialog(context: context, builder: (context){
+                              return AlertDialog(
+                                title: Text("Error"),
+                                content: Text("Invalid Credentials"),
+                              );
+                            });
+                          }
+                        } catch (e) {
+                          print(e);
+                        }
+
+
+
+
 
                       }
                     },
