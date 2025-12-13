@@ -1,3 +1,5 @@
+import 'package:alinfo9_workshops/Constants/Constants.dart';
+import 'package:alinfo9_workshops/DatabaseSqFlite/Mydb.dart';
 import 'package:alinfo9_workshops/models/Film.dart';
 import 'package:flutter/material.dart';
 class Details extends StatefulWidget {
@@ -8,7 +10,9 @@ class Details extends StatefulWidget {
   State<Details> createState() => _DetailsState();
 }
 
+
 class _DetailsState extends State<Details> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,17 +23,22 @@ class _DetailsState extends State<Details> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            Image.asset(widget.film.image),
+            Image.network(Constants.base_url+widget.film.image),
             SizedBox(height: 20,),
             Text(widget.film.description),
             SizedBox(height: 40,),
-          //  Text(widget.film.price.toString()+" DT",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
+            Text(widget.film.price.toString()+" DT",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold),),
             SizedBox(height: 40,),
             Container(
               width: 150,
               height: 50,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  Mydb.addItem(widget.film);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("${widget.film.title} ajoute au panier"))
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepOrange,
                   foregroundColor: Colors.white

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:alinfo9_workshops/screens/MyFilmsListView.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Constants/Constants.dart';
 
 
@@ -114,6 +115,11 @@ class _SignInState extends State<SignIn> {
                           );
 
                           if(response.statusCode==200){
+                            SharedPreferences prefs =  await SharedPreferences.getInstance();
+                            Map<String,dynamic> body = json.decode(response.body);
+                            String nameConnectedUser= body['username'];
+                            print(nameConnectedUser);
+                            prefs.setString("username", nameConnectedUser);
                             Navigator.pushReplacementNamed(context, "/tabbarnav");
                           }
                              else{

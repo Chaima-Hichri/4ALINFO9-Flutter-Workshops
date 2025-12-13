@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class itemFilmListView extends StatelessWidget {
   final String title;
   final String image;
-  const itemFilmListView({super.key,required this.title,required this.image});
+  final VoidCallback addToFav;
+  final bool isFavorite;
+  const itemFilmListView({super.key,required this.title,required this.image,required this.isFavorite,required this.addToFav});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,9 @@ class itemFilmListView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("$title",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                  Icon(Icons.star,color: Colors.amber,size: 25,)
+                  InkWell(
+                      onTap: addToFav,
+                      child: Icon(Icons.star,color:isFavorite? Colors.amber : Colors.grey,size: 25,))
                 ],
               ),
             )

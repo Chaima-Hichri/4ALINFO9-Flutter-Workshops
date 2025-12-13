@@ -1,3 +1,4 @@
+import 'package:alinfo9_workshops/screens/Favorites.dart';
 import 'package:alinfo9_workshops/screens/MyCart.dart';
 import 'package:alinfo9_workshops/screens/MyFilmsGridView.dart';
 import 'package:alinfo9_workshops/screens/MyFilmsListView.dart';
@@ -43,7 +44,7 @@ class _TabBarNavState extends State<TabBarNav>
           ),
           Tab(
             icon: Icon(Icons.person),
-            text: "Profile",
+            text: "Favorites",
           ),
         ]),
       ),
@@ -53,7 +54,7 @@ class _TabBarNavState extends State<TabBarNav>
         MyFilmsListView(),
         MyFilmsGridView(),
         MyCart(),
-        Profile(),
+            Favorites()
       ]),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:alinfo9_workshops/models/Film.dart';
 import 'package:alinfo9_workshops/screens/BottomNavBar.dart';
 import 'package:alinfo9_workshops/screens/Details.dart';
 import 'package:alinfo9_workshops/screens/MyCart.dart';
@@ -8,9 +9,16 @@ import 'package:alinfo9_workshops/screens/SignIn.dart';
 import 'package:alinfo9_workshops/screens/SignUp.dart';
 import 'package:alinfo9_workshops/screens/TabBarNav.dart';
 import 'package:flutter/material.dart' show AppBar, BuildContext, Center, ColorScheme, Colors, Column, FloatingActionButton, Icon, Icons, MainAxisAlignment, MaterialApp, Scaffold, State, StatefulWidget, StatelessWidget, Text, Theme, ThemeData, Widget, runApp;
+import 'package:flutter/widgets.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(FilmAdapter());
+  await Hive.openBox<Film>('favorites');
   runApp(const MyApp());
 }
 

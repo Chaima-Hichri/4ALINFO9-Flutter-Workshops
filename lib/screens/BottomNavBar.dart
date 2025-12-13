@@ -1,6 +1,7 @@
 import 'package:alinfo9_workshops/screens/MyCart.dart';
 import 'package:alinfo9_workshops/screens/MyFilmsGridView.dart';
 import 'package:alinfo9_workshops/screens/MyFilmsListView.dart';
+import 'package:alinfo9_workshops/screens/Profile.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/CustomDrawer.dart';
@@ -13,7 +14,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int pageIndex=0;
-  List<Widget> interfaces =[MyFilmsListView(),MyFilmsGridView(),MyCart()];
+  List<Widget> interfaces =[MyFilmsListView(),MyFilmsGridView(),Profile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           items: [
         BottomNavigationBarItem(icon: Icon(Icons.store),label: "Store"),
         BottomNavigationBarItem(icon: Icon(Icons.list_alt),label: "Biblio"),
-        BottomNavigationBarItem(icon: Icon(Icons.shopping_basket),label: "Basket"),
+        BottomNavigationBarItem(icon: Icon(Icons.person),label: "Profile"),
       ]),
       body:interfaces[pageIndex] ,
     );

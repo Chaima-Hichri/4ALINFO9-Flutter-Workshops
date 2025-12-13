@@ -5,6 +5,7 @@ import 'package:alinfo9_workshops/screens/Details.dart';
 import 'package:alinfo9_workshops/widgets/CustomDrawer.dart';
 import 'package:alinfo9_workshops/widgets/itemFilmListView.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import '../models/Film.dart';
 
@@ -18,6 +19,7 @@ class MyFilmsListView extends StatefulWidget {
 class _MyFilmsListViewState extends State<MyFilmsListView> {
   final List<Film> myfilms=[];
   late Future<bool> fetchedFilms;
+  late Box<Film> favoritesBox;
 
   Future<bool> getFilms() async{
     final response=await http.get(
@@ -31,6 +33,22 @@ class _MyFilmsListViewState extends State<MyFilmsListView> {
     }
     return true;
   }
+  bool isFavorite (Film film){
+    return favoritesBox.values.any((f)=>f.title==film.title);
+  }
+
+  void toggleFavorite(Film film){
+    if(isFavorite(film)){
+      final key = favoritesBox.keys.firstWhere((k)=>favoritesBox.get(k)!.title==film.title);
+      favoritesBox.delete(key);
+    }
+    else{
+      favoritesBox.add(film);
+    }
+    setState(() {
+
+    });
+  }
 
 
   @override
@@ -38,6 +56,7 @@ class _MyFilmsListViewState extends State<MyFilmsListView> {
     // TODO: implement initState
     super.initState();
     fetchedFilms=getFilms();
+    favoritesBox=Hive.box<Film>('favorites');
   }
   @override
   Widget build(BuildContext context) {
@@ -57,7 +76,14 @@ class _MyFilmsListViewState extends State<MyFilmsListView> {
                                     builder: (context) => Details(film: myfilms[index])));
                           },
                           child: itemFilmListView(
-                              title: myfilms[index].title, image: myfilms[index].image));
+                              title: myfilms[index].title,
+                              image: myfilms[index].image,
+                              isFavorite:isFavorite(myfilms[index]),
+                            addToFav:(){
+                                toggleFavorite(myfilms[index]);
+                            },
+
+                          ));
                     });
               }
               else{
